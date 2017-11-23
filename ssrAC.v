@@ -76,7 +76,7 @@ Coercion Leaf : nat >-> syntax.
 Bind Scope AC_scope with syntax.
 Notation "0" := 0%N : AC_scope.
 Notation "1" := 1%N : AC_scope.
-Notation "x + y" := (Op x%ac y%ac) : AC_scope.
+Notation "x * y" := (Op x%ac y%ac) : AC_scope.
 
 Definition type_of T (x : T) := T.
 Arguments type_of / T x.
@@ -117,16 +117,16 @@ Notation ACl f s := (ACl_of f s%ac : f%function _ _ = _).
 
 Section Tests.
 
-Lemma toto (a b c d : bool) : (a || b) || (c || d) = (a || c) || (b || d).
+Lemma test_orb (a b c d : bool) : (a || b) || (c || d) = (a || c) || (b || d).
 Proof.
 rewrite !orbA.
-rewrite (ACl orb ((0 + 2) + (1 + 3))).
+rewrite (ACl orb ((0 * 2) * (1 * 3))).
 by rewrite !orbA.
 Qed.
 
-Lemma toto' (a b c d : nat) : (a + b + c + d = a + c + b + d)%N.
+Lemma test_addn (a b c d : nat) : (a + b + c + d = a + c + b + d)%N.
 Proof.
-by rewrite (ACl addn (0 + 2 + 1 + 3)).
+by rewrite (ACl addn (0 * 2 * 1 * 3)).
 Qed.
 
 End Tests.
